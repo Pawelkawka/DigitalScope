@@ -44,10 +44,6 @@ You can customize the output directory:
 ```
 
 > [!WARNING]
-> #### Windows SmartScreen
-> Because this project is free and open source the installer does not come with a digital certificate. Windows may display a SmartScreen message when you first run it.
-
-> [!WARNING]
 >**Author takes no responsibility for any game bans, account suspensions or other consequences** that may result from using this software while playing online games.  
 >Some anticheats perform broad behavioural analysis and may flag or react to overlay tools even if they do not interact with game memory. 
 >**Use at your own risk** always check the terms of service of the game you are playing.
