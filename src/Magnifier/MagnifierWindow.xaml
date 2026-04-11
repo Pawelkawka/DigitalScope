@@ -1,0 +1,39 @@
+<Window x:Class="DigitalScope.Magnifier.MagnifierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DigitalScope"
+        WindowStyle="None"
+        AllowsTransparency="False"
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize"
+        ShowActivated="False"
+        Focusable="False"
+        SizeToContent="Manual">
+
+    <Border x:Name="RootBorder"
+            Background="Black"
+            ClipToBounds="True">
+
+        <Grid>
+            <Image x:Name="MagImage"
+                   Stretch="Fill"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+
+            <Canvas x:Name="CrosshairCanvas"
+                    IsHitTestVisible="False"
+                    Visibility="Collapsed">
+                <Line x:Name="CrosshairH"
+                      Canvas.Left="0"
+                      Stroke="#FF0000"
+                      StrokeThickness="1"
+                      IsHitTestVisible="False"/>
+                <Line x:Name="CrosshairV"
+                      Canvas.Top="0"
+                      Stroke="#FF0000"
+                      StrokeThickness="1"
+                      IsHitTestVisible="False"/>
+            </Canvas>
+        </Grid>
+    </Border>
+</Window>

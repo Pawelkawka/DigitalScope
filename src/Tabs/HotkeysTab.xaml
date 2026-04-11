@@ -1,0 +1,43 @@
+<UserControl x:Class="DigitalScope.Tabs.HotkeysTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="28,16,28,24">
+
+            <TextBlock Style="{StaticResource H1}" Text="Keyboard Shortcuts"/>
+
+            <TextBlock Style="{StaticResource H2}" Text="Hotkey Configuration"/>
+
+            <Border Style="{StaticResource SettingCard}">
+                <StackPanel>
+
+                    <Grid Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="180"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Toggle Magnifier" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                            <TextBlock Text="Show or hide the magnifier overlay" Style="{StaticResource SubText}"/>
+                        </StackPanel>
+                        <TextBox x:Name="TbToggleHotkey" Grid.Column="1"
+                                 Style="{StaticResource ModernTextBox}"
+                                 VerticalAlignment="Center"
+                                 Margin="0,1,0,0"
+                                 KeyDown="TbToggleHotkey_KeyDown"
+                                 GotFocus="TbHotkey_GotFocus"
+                                 LostFocus="TbHotkey_LostFocus"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <TextBlock x:Name="LblStatus"
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       FontSize="11" Margin="0,8,0,0"
+                       TextWrapping="Wrap"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

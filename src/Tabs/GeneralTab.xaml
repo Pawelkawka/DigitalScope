@@ -1,0 +1,78 @@
+<UserControl x:Class="DigitalScope.Tabs.GeneralTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="28,16,28,24">
+
+            <TextBlock Style="{StaticResource H1}" Text="General"/>
+
+            <TextBlock Style="{StaticResource H2}" Text="Magnifier Size"/>
+            <Border Style="{StaticResource SettingCard}">
+                <StackPanel>
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Width (px)" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                            <TextBlock Text="Horizontal size of the magnifier window" Style="{StaticResource SubText}"/>
+                        </StackPanel>
+                        <Slider x:Name="SlWidth" Grid.Column="1"
+                                Minimum="100" Maximum="1000" TickFrequency="10"
+                                IsSnapToTickEnabled="True" Style="{StaticResource ModernSlider}"
+                                ValueChanged="SlWidth_ValueChanged"/>
+                        <TextBlock x:Name="LblWidth" Grid.Column="2" VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="6,0,0,0"/>
+                    </Grid>
+
+                    <Separator Background="{StaticResource BorderBrush}" Margin="0,0,0,8"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Height (px)" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                            <TextBlock Text="Vertical size of the magnifier window" Style="{StaticResource SubText}"/>
+                        </StackPanel>
+                        <Slider x:Name="SlHeight" Grid.Column="1"
+                                Minimum="100" Maximum="1000" TickFrequency="10"
+                                IsSnapToTickEnabled="True" Style="{StaticResource ModernSlider}"
+                                ValueChanged="SlHeight_ValueChanged"/>
+                        <TextBlock x:Name="LblHeight" Grid.Column="2" VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="6,0,0,0"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource H2}" Text="Zoom Level"/>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="48"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Zoom Factor" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                        <TextBlock Text="How many times the window area is magnified" Style="{StaticResource SubText}"/>
+                    </StackPanel>
+                    <Slider x:Name="SlZoom" Grid.Column="1"
+                            Minimum="15" Maximum="80" TickFrequency="5"
+                            IsSnapToTickEnabled="True" Style="{StaticResource ModernSlider}"
+                            ValueChanged="SlZoom_ValueChanged"/>
+                    <TextBlock x:Name="LblZoom" Grid.Column="2" VerticalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="6,0,0,0"/>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
