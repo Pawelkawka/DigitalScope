@@ -15,13 +15,27 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 - Click through window, so it does not block mouse input
 - Hotkey toggle for quick on/off
 
-## Installation
+### Build from source
 
-### Windows
-1. Go to the [Releases](https://github.com/PawelKawka/DigitalScope/releases) page.
-2. Download `DigitalScope_Setup.exe`.
-3. Run the installer and follow the instructions.
-4. Launch the app via the Desktop shortcut or Start Menu.
+Building locally ensures the executable has a unique binary signature on your machine.
+
+1. Clone or download this repository.
+2. Open a terminal in the repository.
+3. Run script:
+   ```powershell
+   .\build.ps1
+   ```
+5. The compiled output lands in the `build\` folder. Run `DigitalScope.exe` from there.
+
+If you want to call PowerShell directly without changing the global execution policy:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build.ps1
+```
+
+You can customize the output directory:
+```powershell
+.\build.ps1 -OutputDir "set path" 
+```
 
 > [!WARNING]
 > #### Windows SmartScreen

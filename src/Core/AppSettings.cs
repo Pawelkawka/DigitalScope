@@ -4,11 +4,9 @@ public static class AppSettings
 {
     public const string AppName         = "DigitalScope";
     public const string AppPublisher    = "PawelKawka";
-    public const string AppBaseVersion  = "1.0.0";
-    public const string AppBuild        = "1104202601";
+    public const string AppBaseVersion  = "1.1.0";
+    public const string AppBuild        = "1104202602";
     public const string AppVersion      = AppBaseVersion + "." + AppBuild;
-    public const string ReleaseApiUrl   = "https://api.github.com/repos/PawelKawka/DigitalScope/releases/latest";
-    public const string ReleasesPageUrl = "https://github.com/PawelKawka/DigitalScope/releases";
 
     public const int DefaultMagnifierWidth  = 300;
     public const int DefaultMagnifierHeight = 300;
