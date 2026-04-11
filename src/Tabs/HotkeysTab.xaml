@@ -5,9 +5,13 @@
                   HorizontalScrollBarVisibility="Disabled">
         <StackPanel Margin="28,16,28,24">
 
-            <TextBlock Style="{StaticResource H1}" Text="Keyboard Shortcuts"/>
+            <TextBlock Style="{StaticResource H1}" Text="Keyboard &amp; Mouse Shortcuts"/>
 
             <TextBlock Style="{StaticResource H2}" Text="Hotkey Configuration"/>
+
+            <TextBlock Style="{StaticResource SubText}" 
+                       Text="Supports keyboard combinations and mouse buttons (LButton, RButton, MButton, XButton1, XButton2)"
+                       Margin="0,0,0,12"/>
 
             <Border Style="{StaticResource SettingCard}">
                 <StackPanel>
