@@ -17,7 +17,43 @@ public partial class HotkeysTab : UserControl
     public bool IsAnyHotkeyFocused =>
         TbToggleHotkey.IsKeyboardFocused;
 
-    public HotkeysTab() => InitializeComponent();
+    public HotkeysTab()
+    {
+        InitializeComponent();
+        PreviewMouseDown += HotkeysTab_PreviewMouseDown;
+    }
+
+    private void HotkeysTab_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (!IsAnyHotkeyFocused) return;
+
+        e.Handled = true;
+        var focusedElement = Keyboard.FocusedElement;
+        if (focusedElement is not TextBox focusedTextBox) return;
+
+        string buttonName = e.ChangedButton switch
+        {
+            System.Windows.Input.MouseButton.Left => "LButton",
+            System.Windows.Input.MouseButton.Right => "RButton",
+            System.Windows.Input.MouseButton.Middle => "MButton",
+            System.Windows.Input.MouseButton.XButton1 => "XButton1",
+            System.Windows.Input.MouseButton.XButton2 => "XButton2",
+            _ => null
+        };
+
+        if (buttonName is null) return;
+
+        var mods = new List<string>();
+        if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) mods.Add("Ctrl");
+        if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)) mods.Add("Shift");
+        if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) mods.Add("Alt");
+
+        mods.Add(buttonName);
+        focusedTextBox.Text = string.Join("+", mods);
+
+        if (focusedTextBox == TbToggleHotkey)
+            SaveToggleHotkey(focusedTextBox.Text);
+    }
 
     public void Initialise(AppConfig config, ConfigManager manager)
     {
@@ -45,6 +81,7 @@ public partial class HotkeysTab : UserControl
             tb.SelectAll();
             if (tb == TbToggleHotkey) _prevToggle = tb.Text;
         }
+        LblStatus.Text = "Press a key combination or mouse button (e.g. Ctrl+M or LButton). Press ESC to cancel.";
     }
 
     public void TbHotkey_LostFocus(object s, RoutedEventArgs e) { }
