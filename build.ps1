@@ -30,15 +30,12 @@ Write-Host "    Configuration : $Configuration"
 Write-Host "    Output        : $OutputDir"
 Write-Host ""
 
-& dotnet publish $ProjectFile `
+& dotnet publish $projectFile `
     --configuration $Configuration `
     --runtime win-x64 `
     --self-contained false `
     --output $OutputDir `
-    /p:Platform=x64 `
-    /p:PublishSingleFile=true `
-    /p:DebugType=none `
-    /p:DebugSymbols=false
+    /p:Platform=x64
 
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Build failed with exit code $LASTEXITCODE."
