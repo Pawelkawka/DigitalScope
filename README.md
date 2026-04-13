@@ -21,6 +21,8 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Windows 11 
 
+### Build from source
+
 Building locally ensures the exe has a unique binary signature on your machine.
 
 1. Go to the [Releases](https://github.com/PawelKawka/DigitalScope/releases) page.
