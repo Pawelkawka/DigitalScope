@@ -17,9 +17,9 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 
 ## Installation
 
-### Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Windows 11 
+### Requirements
+- .NET 8 SDK or later
+- Windows 11
 
 ### Build from source
 
