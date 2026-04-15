@@ -17,17 +17,18 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 
 ## Installation
 
-### Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Windows 11 
+### Requirements
+- .NET 8 SDK or later
+- Windows 11
 
 ### Build from source
 
-Building locally ensures the executable has a unique binary signature on your machine.
+Building locally ensures the exe has a unique binary signature on your machine.
 
-1. Clone or download this repository.
-2. Open a terminal in the repository.
-3. Run script:
+1. Go to the [Releases](https://github.com/PawelKawka/DigitalScope/releases) page.
+2. Download the latest source code.
+3. Open a terminal in the repository.
+4. Run script:
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\build.ps1
    ```
