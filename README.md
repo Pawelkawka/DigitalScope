@@ -23,11 +23,11 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 
 ### Build from source
 
-Building locally ensures the exe has a unique binary signature on your machine.
+Building locally ensures the exe has a unique binary signature.
 
-1. Go to the [Releases](https://github.com/PawelKawka/DigitalScope/releases) page.
+1. Go to the [Releases](https://github.com/PawelKawka/DigitalScope/releases) or clone this repo.
 2. Download the latest source code.
-3. Open a terminal in the repository.
+3. Open a PowerShell in the repository.
 4. Run script:
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\build.ps1
@@ -36,13 +36,12 @@ Building locally ensures the exe has a unique binary signature on your machine.
 
 You can customize the output directory:
 ```powershell
-.\build.ps1 -OutputDir "set path" 
+-OutputDir "set path" 
 ```
 
 > [!WARNING]
 >**Author takes no responsibility for any game bans, account suspensions or other consequences** that may result from using this software while playing online games.  
->Some anticheats perform broad behavioural analysis and may flag or react to overlay tools even if they do not interact with game memory. 
->**Use at your own risk** always check the terms of service of the game you are playing.
+>Some anticheats perform broad behavioural analysis and may flag or react to overlay tools even if they do not interact with game memory.
 
 ## About
 - Developed by Pawel Kawka.

@@ -7,7 +7,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
-    Write-Error ".NET SDK not found. Install .NET 8 SDK from https://dotnet.microsoft.com/download and re-run."
+    Write-Error ".NET SDK not found. Install .NET from https://dotnet.microsoft.com/download and re-run."
 }
 
 $SdkVersion = (& dotnet --version 2>&1)
