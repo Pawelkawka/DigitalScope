@@ -41,8 +41,7 @@ You can customize the output directory:
 
 > [!WARNING]
 >**Author takes no responsibility for any game bans, account suspensions or other consequences** that may result from using this software while playing online games.  
->Some anticheats perform broad behavioural analysis and may flag or react to overlay tools even if they do not interact with game memory. 
->**Use at your own risk** always check the terms of service of the game you are playing.
+>Some anticheats perform broad behavioural analysis and may flag or react to overlay tools even if they do not interact with game memory.
 
 ## About
 - Developed by Pawel Kawka.
