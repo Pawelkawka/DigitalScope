@@ -144,20 +144,14 @@ public partial class MainWindow : Window
 
     private static void AnimateTab(UIElement tab)
     {
+        tab.RenderTransform = null;
+
         var fadeIn = new DoubleAnimation
         {
             From     = 0.0,
             To       = 1.0,
-            Duration = new Duration(TimeSpan.FromMilliseconds(180)),
-        };
-        var slideIn = new ThicknessAnimation
-        {
-            From              = new Thickness(0, 10, 0, -10),
-            To                = new Thickness(0),
-            Duration          = new Duration(TimeSpan.FromMilliseconds(200)),
-            DecelerationRatio = 0.8,
+             Duration = new Duration(TimeSpan.FromMilliseconds(160)),
         };
         tab.BeginAnimation(UIElement.OpacityProperty,       fadeIn);
-        tab.BeginAnimation(FrameworkElement.MarginProperty, slideIn);
     }
 }
