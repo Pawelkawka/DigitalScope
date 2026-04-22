@@ -10,12 +10,13 @@ public partial class HotkeysTab : UserControl
     private AppConfig     _config  = null!;
     private ConfigManager _manager = null!;
 
-    private string _prevToggle = "";
+    private string _prevToggle    = "";
+    private string _prevCrosshair = "";
 
     public event Action? HotkeysChanged;
 
     public bool IsAnyHotkeyFocused =>
-        TbToggleHotkey.IsKeyboardFocused;
+        TbToggleHotkey.IsKeyboardFocused || TbCrosshairHotkey.IsKeyboardFocused;
 
     public HotkeysTab()
     {
@@ -31,7 +32,7 @@ public partial class HotkeysTab : UserControl
         var focusedElement = Keyboard.FocusedElement;
         if (focusedElement is not TextBox focusedTextBox) return;
 
-        string buttonName = e.ChangedButton switch
+        string? buttonName = e.ChangedButton switch
         {
             System.Windows.Input.MouseButton.Left => "LButton",
             System.Windows.Input.MouseButton.Right => "RButton",
@@ -51,8 +52,8 @@ public partial class HotkeysTab : UserControl
         mods.Add(buttonName);
         focusedTextBox.Text = string.Join("+", mods);
 
-        if (focusedTextBox == TbToggleHotkey)
-            SaveToggleHotkey(focusedTextBox.Text);
+        if      (focusedTextBox == TbToggleHotkey)    SaveToggleHotkey(focusedTextBox.Text);
+        else if (focusedTextBox == TbCrosshairHotkey) SaveCrosshairHotkey(focusedTextBox.Text);
     }
 
     public void Initialise(AppConfig config, ConfigManager manager)
@@ -70,8 +71,9 @@ public partial class HotkeysTab : UserControl
 
     private void LoadValues()
     {
-        TbToggleHotkey.Text = _config.HotkeyToggle;
-        LblStatus.Text      = string.Empty;
+        TbToggleHotkey.Text    = _config.HotkeyToggle;
+        TbCrosshairHotkey.Text = _config.HotkeyCrosshair;
+        LblStatus.Text         = string.Empty;
     }
 
     public void TbHotkey_GotFocus(object s, RoutedEventArgs e)
@@ -79,7 +81,8 @@ public partial class HotkeysTab : UserControl
         if (s is TextBox tb)
         {
             tb.SelectAll();
-            if (tb == TbToggleHotkey) _prevToggle = tb.Text;
+            if (tb == TbToggleHotkey)    _prevToggle    = tb.Text;
+        if (tb == TbCrosshairHotkey) _prevCrosshair = tb.Text;
         }
         LblStatus.Text = "Press a key combination or mouse button (e.g. Ctrl+M or LButton). Press ESC to cancel.";
     }
@@ -91,6 +94,13 @@ public partial class HotkeysTab : UserControl
         if (IsEscape(e)) { CancelEdit(TbToggleHotkey, _prevToggle, e); return; }
         if (CaptureHotkey(TbToggleHotkey, e))
             SaveToggleHotkey(TbToggleHotkey.Text);
+    }
+
+    private void TbCrosshairHotkey_KeyDown(object s, KeyEventArgs e)
+    {
+        if (IsEscape(e)) { CancelEdit(TbCrosshairHotkey, _prevCrosshair, e); return; }
+        if (CaptureHotkey(TbCrosshairHotkey, e))
+            SaveCrosshairHotkey(TbCrosshairHotkey.Text);
     }
 
     private static bool IsEscape(KeyEventArgs e)
@@ -129,7 +139,7 @@ public partial class HotkeysTab : UserControl
 
     private bool HasConflict(string candidate, string skip)
     {
-        var all = new[] { _config.HotkeyToggle };
+        var all = new[] { _config.HotkeyToggle, _config.HotkeyCrosshair };
         foreach (var h in all)
         {
             if (h.Equals(skip, StringComparison.OrdinalIgnoreCase)) continue;
@@ -155,6 +165,26 @@ public partial class HotkeysTab : UserControl
         HotkeysChanged?.Invoke();
         LblStatus.Text = string.Empty;
         AppLogger.Info($"Toggle hotkey updated: {newHotkey}");
+        Keyboard.ClearFocus();
+    }
+
+    private void SaveCrosshairHotkey(string newHotkey)
+    {
+        newHotkey = newHotkey.Trim();
+        if (string.IsNullOrEmpty(newHotkey)) return;
+
+        if (HasConflict(newHotkey, _config.HotkeyCrosshair))
+        {
+            LblStatus.Text          = "⚠  Conflict: this hotkey is already used by another action.";
+            TbCrosshairHotkey.Text  = _prevCrosshair;
+            return;
+        }
+
+        _config.HotkeyCrosshair = newHotkey;
+        _manager.Save();
+        HotkeysChanged?.Invoke();
+        LblStatus.Text = string.Empty;
+        AppLogger.Info($"Crosshair hotkey updated: {newHotkey}");
         Keyboard.ClearFocus();
     }
 }

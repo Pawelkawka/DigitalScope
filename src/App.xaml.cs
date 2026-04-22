@@ -44,8 +44,9 @@ public partial class App : Application
         base.OnStartup(e);
 
         _tray = new TrayIconManager();
-        _tray.ShowRequested += OnTrayShow;
-        _tray.ExitRequested += OnTrayExit;
+        _tray.ShowRequested            += OnTrayShow;
+        _tray.CrosshairToggleRequested += OnTrayCrosshairToggle;
+        _tray.ExitRequested            += OnTrayExit;
 
         _mainWindow = new MainWindow();
         MainWindow  = _mainWindow;
@@ -62,6 +63,11 @@ public partial class App : Application
                 _mainWindow.WindowState = WindowState.Normal;
             _mainWindow.Activate();
         });
+    }
+
+    private void OnTrayCrosshairToggle()
+    {
+        Dispatcher.Invoke(() => _mainWindow?.ToggleCrosshair());
     }
 
     private void OnTrayExit()

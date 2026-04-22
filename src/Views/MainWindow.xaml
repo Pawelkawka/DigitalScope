@@ -1,10 +1,14 @@
 <Window x:Class="DigitalScope.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tabs="clr-namespace:DigitalScope.Tabs"
+        mc:Ignorable="d"
         Title="DigitalScope"
         Icon="/Resources/icon.ico"
         Width="820" Height="700"
+        d:DesignWidth="820" d:DesignHeight="700"
         ResizeMode="CanMinimize"
         MinWidth="560" MinHeight="420"
         Background="{StaticResource BackgroundBrush}">
@@ -22,16 +26,16 @@
                 BorderThickness="0,0,0,1">
             <StackPanel Orientation="Horizontal" Margin="4,0">
                 <RadioButton x:Name="SubTabGeneral"
-                             Content="General"
+                             Content="Magnifier"
                              GroupName="MainTabs"
-                             Tag="General"
+                             Tag="Magnifier"
                              Style="{StaticResource SubTabButton}"
                              IsChecked="True"
                              Checked="SubTab_Checked"/>
-                <RadioButton x:Name="SubTabAppearance"
-                             Content="Appearance"
+                <RadioButton x:Name="SubTabCrosshair"
+                             Content="Crosshair"
                              GroupName="MainTabs"
-                             Tag="Appearance"
+                             Tag="Crosshair"
                              Style="{StaticResource SubTabButton}"
                              Checked="SubTab_Checked"/>
                 <RadioButton x:Name="SubTabHotkeys"
@@ -45,7 +49,7 @@
 
         <Grid Grid.Row="1">
             <tabs:GeneralTab    x:Name="TabGeneral"    Visibility="Visible"/>
-            <tabs:AppearanceTab x:Name="TabAppearance" Visibility="Collapsed"/>
+            <tabs:CrosshairTab  x:Name="TabCrosshair"  Visibility="Collapsed"/>
             <tabs:HotkeysTab    x:Name="TabHotkeys"    Visibility="Collapsed"/>
         </Grid>
 

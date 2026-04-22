@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using DigitalScope.Core;
+using DigitalScope.Crosshair;
 using DigitalScope.Magnifier;
 
 namespace DigitalScope.Views;
@@ -18,8 +19,10 @@ public partial class MainWindow : Window
     private readonly ConfigManager    _cfgManager;
     private readonly HotkeyManager    _hotkeys;
     private readonly MagnifierWindow  _magnifier;
+    private readonly CrosshairWindow  _crosshair;
 
-    private int  _hkToggleId = -1;
+    private int  _hkToggleId    = -1;
+    private int  _hkCrosshairId = -1;
     private bool _exitRequested;
 
     public MainWindow()
@@ -27,17 +30,18 @@ public partial class MainWindow : Window
         _cfgManager = new ConfigManager();
         _cfgManager.Load();
 
-        _hotkeys  = new HotkeyManager();
+        _hotkeys   = new HotkeyManager();
         _magnifier = new MagnifierWindow(_cfgManager.Config);
+        _crosshair = new CrosshairWindow(_cfgManager.Config);
 
         InitializeComponent();
 
         TabGeneral.Initialise   (_cfgManager.Config, _cfgManager);
-        TabAppearance.Initialise(_cfgManager.Config, _cfgManager);
+        TabCrosshair.Initialise (_cfgManager.Config, _cfgManager);
         TabHotkeys.Initialise   (_cfgManager.Config, _cfgManager);
 
         TabGeneral.ConfigChanged    += OnConfigChanged;
-        TabAppearance.ConfigChanged += OnConfigChanged;
+        TabCrosshair.ConfigChanged  += OnCrosshairTabChanged;
         TabHotkeys.HotkeysChanged   += RegisterHotkeys;
 
         TbVersion.Text = AppSettings.AppVersion;
@@ -57,6 +61,7 @@ public partial class MainWindow : Window
     {
         _hotkeys.Dispose();
         _magnifier.Close();
+        _crosshair.Close();
         AppLogger.Info("MainWindow closed.");
         AppLogger.Close();
     }
@@ -79,6 +84,8 @@ public partial class MainWindow : Window
         Close();
     }
 
+    public void ToggleCrosshair() => _crosshair.Toggle();
+
     private void EnableDarkTitleBar()
     {
         try
@@ -95,42 +102,56 @@ public partial class MainWindow : Window
 
     private void RegisterHotkeys()
     {
-        if (_hkToggleId >= 0) _hotkeys.Unregister(_hkToggleId);
+        if (_hkToggleId    >= 0) _hotkeys.Unregister(_hkToggleId);
+        if (_hkCrosshairId >= 0) _hotkeys.Unregister(_hkCrosshairId);
 
         _hkToggleId = _hotkeys.Register(
             _cfgManager.Config.HotkeyToggle,
             () =>
             {
                 if (!TabHotkeys.IsAnyHotkeyFocused)
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        _magnifier.Toggle();
-                    });
-                }
+                    Dispatcher.Invoke(() => _magnifier.Toggle());
             });
 
-        AppLogger.Info($"Hotkeys: toggle={_cfgManager.Config.HotkeyToggle}");
+        _hkCrosshairId = _hotkeys.Register(
+            _cfgManager.Config.HotkeyCrosshair,
+            () =>
+            {
+                if (!TabHotkeys.IsAnyHotkeyFocused)
+                    Dispatcher.Invoke(() => _crosshair.Toggle());
+            });
+
+        AppLogger.Info($"Hotkeys: toggle={_cfgManager.Config.HotkeyToggle}, crosshair={_cfgManager.Config.HotkeyCrosshair}");
     }
 
     private void OnConfigChanged()
     {
         _magnifier.UpdateConfig(_cfgManager.Config);
+        _crosshair.UpdateConfig(_cfgManager.Config);
+    }
+
+    private void OnCrosshairTabChanged()
+    {
+        _crosshair.UpdateConfig(_cfgManager.Config);
+        if (TabCrosshair.IsOverlayEnabled && !_crosshair.IsActive)
+            _crosshair.Activate();
+        else if (!TabCrosshair.IsOverlayEnabled && _crosshair.IsActive)
+            _crosshair.Deactivate();
     }
 
     private void SubTab_Checked(object sender, RoutedEventArgs e)
     {
         if (sender is not RadioButton rb) return;
-        if (TabGeneral is null || TabAppearance is null || TabHotkeys is null) return;
+        if (TabGeneral is null || TabHotkeys is null) return;
 
         TabGeneral.Visibility    = Visibility.Collapsed;
-        TabAppearance.Visibility = Visibility.Collapsed;
+        TabCrosshair.Visibility  = Visibility.Collapsed;
         TabHotkeys.Visibility    = Visibility.Collapsed;
 
         UIElement? target = rb.Tag?.ToString() switch
         {
-            "General"    => TabGeneral,
-            "Appearance" => TabAppearance,
+            "Magnifier"  => TabGeneral,
+            "Crosshair"  => TabCrosshair,
             "Hotkeys"    => TabHotkeys,
             _ => null,
         };
