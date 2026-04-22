@@ -20,7 +20,7 @@ public static class AppSettings
 
     // crosshair overlay
     public const string DefaultOverlayCrosshairType      = "Cross";
-    public const string DefaultOverlayCrosshairColor     = "#00ff40";
+    public const string DefaultOverlayCrosshairColor     = "#ffffff";
     public const int    DefaultOverlayCrosshairSize      = 15;
     public const double DefaultOverlayCrosshairOpacity   = 1.0;
     public const int    DefaultOverlayCrosshairGap       = 4;
