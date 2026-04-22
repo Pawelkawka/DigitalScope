@@ -1,7 +1,11 @@
 <UserControl x:Class="DigitalScope.Tabs.AppearanceTab"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:ctrl="clr-namespace:DigitalScope.Controls">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ctrl="clr-namespace:DigitalScope.Controls"
+             mc:Ignorable="d"
+             d:DesignWidth="820" d:DesignHeight="640">
     <Grid PreviewMouseDown="Appearance_PreviewMouseDown"
           PreviewKeyDown="Appearance_PreviewKeyDown">
     <ScrollViewer VerticalScrollBarVisibility="Auto"
@@ -10,7 +14,7 @@
 
             <TextBlock Style="{StaticResource H1}" Text="Appearance"/>
 
-            <TextBlock Style="{StaticResource H2}" Text="Crosshair"/>
+            <TextBlock Style="{StaticResource H2}" Text="Magnifier Crosshair"/>
             <Border Style="{StaticResource SettingCard}">
                 <StackPanel>
 
@@ -21,7 +25,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Show Crosshair" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
-                            <TextBlock Text="Draw a center crosshair over the magnified view" Style="{StaticResource SubText}"/>
+                            <TextBlock Text="Draw a center crosshair inside the magnifier view" Style="{StaticResource SubText}"/>
                         </StackPanel>
                         <CheckBox x:Name="ChkCrosshair" Grid.Column="1"
                                   Style="{StaticResource ToggleSwitch}"

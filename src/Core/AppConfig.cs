@@ -10,5 +10,13 @@ public class AppConfig
     public bool   ShowCrosshair  { get; set; } = AppSettings.DefaultShowCrosshair;
     public string CrosshairColor { get; set; } = AppSettings.DefaultCrosshairColor;
 
-    public string HotkeyToggle { get; set; } = AppSettings.DefaultHotkeyToggle;
+    // crosshair overlay
+    public string OverlayCrosshairType      { get; set; } = AppSettings.DefaultOverlayCrosshairType;
+    public string OverlayCrosshairColor     { get; set; } = AppSettings.DefaultOverlayCrosshairColor;
+    public int    OverlayCrosshairSize      { get; set; } = AppSettings.DefaultOverlayCrosshairSize;
+    public double OverlayCrosshairOpacity   { get; set; } = AppSettings.DefaultOverlayCrosshairOpacity;
+    public int    OverlayCrosshairGap       { get; set; } = AppSettings.DefaultOverlayCrosshairGap;
+
+    public string HotkeyToggle     { get; set; } = AppSettings.DefaultHotkeyToggle;
+    public string HotkeyCrosshair  { get; set; } = AppSettings.DefaultHotkeyCrosshair;
 }

@@ -18,5 +18,15 @@ public static class AppSettings
     public const bool   DefaultShowCrosshair   = false;
     public const string DefaultCrosshairColor  = "#ffffff";
 
-    public const string DefaultHotkeyToggle = "Ctrl+G";
+    // crosshair overlay
+    public const string DefaultOverlayCrosshairType      = "Cross";
+    public const string DefaultOverlayCrosshairColor     = "#FF0000";
+    public const int    DefaultOverlayCrosshairSize      = 15;
+    public const double DefaultOverlayCrosshairOpacity   = 1.0;
+    public const int    DefaultOverlayCrosshairGap       = 4;
+    public const int    MinOverlayCrosshairSize          = 2;
+    public const int    MaxOverlayCrosshairSize          = 120;
+
+    public const string DefaultHotkeyToggle     = "Ctrl+G";
+    public const string DefaultHotkeyCrosshair  = "Ctrl+H";
 }

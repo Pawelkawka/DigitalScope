@@ -11,6 +11,7 @@ public sealed class TrayIconManager : IDisposable
     private readonly Icon       _appIcon;
 
     public event Action? ShowRequested;
+    public event Action? CrosshairToggleRequested;
     public event Action? ExitRequested;
 
     public TrayIconManager()
@@ -35,8 +36,9 @@ public sealed class TrayIconManager : IDisposable
         System.Windows.Application.Current.Dispatcher.Invoke(() =>
         {
             var menu = new TrayContextMenu();
-            menu.ShowRequested += () => ShowRequested?.Invoke();
-            menu.ExitRequested += () => ExitRequested?.Invoke();
+            menu.ShowRequested             += () => ShowRequested?.Invoke();
+            menu.CrosshairToggleRequested  += () => CrosshairToggleRequested?.Invoke();
+            menu.ExitRequested             += () => ExitRequested?.Invoke();
             menu.ShowAtCursor();
         });
     }

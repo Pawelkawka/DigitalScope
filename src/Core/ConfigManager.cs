@@ -75,8 +75,16 @@ public class ConfigManager
         Config.MagnifierHeight = Math.Clamp(Config.MagnifierHeight, 100, 1080);
         Config.ZoomFactor      = Math.Clamp(Config.ZoomFactor, AppSettings.MinZoomFactor, AppSettings.MaxZoomFactor);
 
+        Config.OverlayCrosshairSize    = Math.Clamp(Config.OverlayCrosshairSize, AppSettings.MinOverlayCrosshairSize, AppSettings.MaxOverlayCrosshairSize);
+        Config.OverlayCrosshairOpacity = Math.Clamp(Config.OverlayCrosshairOpacity, 0.1, 1.0);
+        Config.OverlayCrosshairGap     = Math.Clamp(Config.OverlayCrosshairGap, 0, 40);
+
         Config.HotkeyToggle = string.IsNullOrWhiteSpace(Config.HotkeyToggle)
             ? AppSettings.DefaultHotkeyToggle
             : Config.HotkeyToggle.Trim();
+
+        Config.HotkeyCrosshair = string.IsNullOrWhiteSpace(Config.HotkeyCrosshair)
+            ? AppSettings.DefaultHotkeyCrosshair
+            : Config.HotkeyCrosshair.Trim();
     }
 }

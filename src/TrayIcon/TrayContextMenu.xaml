@@ -1,6 +1,10 @@
 <Window x:Class="DigitalScope.TrayIcon.TrayContextMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="240" d:DesignHeight="160"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -90,6 +94,17 @@
                         Style="{StaticResource MenuItemBtn}"
                         Click="ShowButton_Click">
                     <TextBlock Text="Show Window" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimaryBrush}"/>
+                </Button>
+
+                <Border Height="1"
+                        Background="{StaticResource BorderBrush}"
+                        Margin="8,3"/>
+
+                <Button x:Name="ToggleCrosshairButton"
+                        Style="{StaticResource MenuItemBtn}"
+                        Click="ToggleCrosshairButton_Click">
+                    <TextBlock Text="Toggle Crosshair"
                                Foreground="{StaticResource TextPrimaryBrush}"/>
                 </Button>
 
