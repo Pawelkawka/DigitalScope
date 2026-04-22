@@ -10,13 +10,16 @@ public static class CrosshairRenderer
     public static void Draw(Canvas canvas, AppConfig config)
     {
         canvas.Children.Clear();
+        canvas.SnapsToDevicePixels = true;
+        canvas.UseLayoutRounding = true;
+        RenderOptions.SetEdgeMode(canvas, EdgeMode.Aliased);
 
         double w     = canvas.Width;
         double h     = canvas.Height;
         double cx    = w / 2;
         double cy    = h / 2;
         double size  = Math.Clamp(config.OverlayCrosshairSize, AppSettings.MinOverlayCrosshairSize, AppSettings.MaxOverlayCrosshairSize);
-        double thick = Math.Clamp(size * 0.12, 1.5, 3.5);
+        double thick = Math.Clamp(config.OverlayCrosshairThickness, AppSettings.MinOverlayCrosshairThickness, AppSettings.MaxOverlayCrosshairThickness);
         double gap   = Math.Clamp(config.OverlayCrosshairGap, 0, size - 1);
 
         var brush = ParseBrush(config.OverlayCrosshairColor) ?? Brushes.Red;
@@ -34,14 +37,17 @@ public static class CrosshairRenderer
 
     private static void DrawCross(Canvas canvas, double cx, double cy, double size, double thick, double gap, Brush brush)
     {
+        double snappedCx = SnapStrokeCoordinate(cx, thick);
+        double snappedCy = SnapStrokeCoordinate(cy, thick);
+
         // Left
-        AddLine(canvas, cx - size, cy, cx - gap, cy, thick, brush);
+        AddLine(canvas, snappedCx - size, snappedCy, snappedCx - gap, snappedCy, thick, brush);
         // Right
-        AddLine(canvas, cx + gap, cy, cx + size, cy, thick, brush);
+        AddLine(canvas, snappedCx + gap, snappedCy, snappedCx + size, snappedCy, thick, brush);
         // Top
-        AddLine(canvas, cx, cy - size, cx, cy - gap, thick, brush);
+        AddLine(canvas, snappedCx, snappedCy - size, snappedCx, snappedCy - gap, thick, brush);
         // Bottom
-        AddLine(canvas, cx, cy + gap, cx, cy + size, thick, brush);
+        AddLine(canvas, snappedCx, snappedCy + gap, snappedCx, snappedCy + size, thick, brush);
     }
 
     private static void DrawDot(Canvas canvas, double cx, double cy, double size, Brush brush)
@@ -68,10 +74,19 @@ public static class CrosshairRenderer
             Y2              = y2,
             Stroke          = brush,
             StrokeThickness = thick,
-            StrokeStartLineCap = PenLineCap.Round,
-            StrokeEndLineCap   = PenLineCap.Round
+            StrokeStartLineCap = PenLineCap.Flat,
+            StrokeEndLineCap   = PenLineCap.Flat,
+            SnapsToDevicePixels = true
         };
         canvas.Children.Add(line);
+    }
+
+    private static double SnapStrokeCoordinate(double coordinate, double thickness)
+    {
+        int snappedThickness = Math.Max(1, (int)Math.Round(thickness));
+        return snappedThickness % 2 == 0
+            ? Math.Round(coordinate)
+            : Math.Floor(coordinate) + 0.5;
     }
 
     private static SolidColorBrush? ParseBrush(string hex)

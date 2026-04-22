@@ -50,6 +50,8 @@ public partial class CrosshairTab : UserControl
         SlSize.Value      = _config.OverlayCrosshairSize;
         LblSize.Text      = $"{_config.OverlayCrosshairSize}";
 
+        SlThickness.Value = _config.OverlayCrosshairThickness;
+        LblThickness.Text = $"{_config.OverlayCrosshairThickness:F1}";
 
         SlGap.Value       = _config.OverlayCrosshairGap;
         LblGap.Text       = $"{_config.OverlayCrosshairGap}";
@@ -97,6 +99,14 @@ public partial class CrosshairTab : UserControl
         Save();
     }
 
+    private void SlThickness_ValueChanged(object s, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (LblThickness != null) LblThickness.Text = $"{e.NewValue:F1}";
+        if (_loading || _config is null) return;
+        _config.OverlayCrosshairThickness = e.NewValue;
+        Save();
+    }
+
     private void SlGap_ValueChanged(object s, RoutedPropertyChangedEventArgs<double> e)
     {
         if (LblGap != null) LblGap.Text = $"{(int)e.NewValue}";
@@ -141,8 +151,10 @@ public partial class CrosshairTab : UserControl
     private void UpdateGapVisibility()
     {
         bool showGap = _config?.OverlayCrosshairType != "Dot";
-        GapRow.Visibility       = showGap ? Visibility.Visible   : Visibility.Collapsed;
-        GapSeparator.Visibility = showGap ? Visibility.Visible   : Visibility.Collapsed;
+        ThicknessRow.Visibility       = showGap ? Visibility.Visible   : Visibility.Collapsed;
+        ThicknessSeparator.Visibility = showGap ? Visibility.Visible   : Visibility.Collapsed;
+        GapRow.Visibility             = showGap ? Visibility.Visible   : Visibility.Collapsed;
+        GapSeparator.Visibility       = showGap ? Visibility.Visible   : Visibility.Collapsed;
     }
 
     private void RefreshPreview()
@@ -155,11 +167,12 @@ public partial class CrosshairTab : UserControl
 
         var previewConfig = new AppConfig
         {
-            OverlayCrosshairType    = _config.OverlayCrosshairType,
-            OverlayCrosshairColor   = _config.OverlayCrosshairColor,
-            OverlayCrosshairSize    = Math.Max((int)(_config.OverlayCrosshairSize * scale), AppSettings.MinOverlayCrosshairSize),
-            OverlayCrosshairOpacity = _config.OverlayCrosshairOpacity,
-            OverlayCrosshairGap     = (int)(_config.OverlayCrosshairGap * scale),
+            OverlayCrosshairType      = _config.OverlayCrosshairType,
+            OverlayCrosshairColor     = _config.OverlayCrosshairColor,
+            OverlayCrosshairSize      = Math.Max((int)(_config.OverlayCrosshairSize * scale), AppSettings.MinOverlayCrosshairSize),
+            OverlayCrosshairOpacity   = _config.OverlayCrosshairOpacity,
+            OverlayCrosshairThickness = Math.Clamp(_config.OverlayCrosshairThickness * scale, AppSettings.MinOverlayCrosshairThickness, AppSettings.MaxOverlayCrosshairThickness),
+            OverlayCrosshairGap       = (int)(_config.OverlayCrosshairGap * scale),
         };
 
         double previewSide = CrosshairRenderer.CanvasSize(previewConfig);

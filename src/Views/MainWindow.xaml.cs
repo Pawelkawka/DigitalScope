@@ -37,12 +37,10 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         TabGeneral.Initialise   (_cfgManager.Config, _cfgManager);
-        TabAppearance.Initialise(_cfgManager.Config, _cfgManager);
         TabCrosshair.Initialise (_cfgManager.Config, _cfgManager);
         TabHotkeys.Initialise   (_cfgManager.Config, _cfgManager);
 
         TabGeneral.ConfigChanged    += OnConfigChanged;
-        TabAppearance.ConfigChanged += OnConfigChanged;
         TabCrosshair.ConfigChanged  += OnCrosshairTabChanged;
         TabHotkeys.HotkeysChanged   += RegisterHotkeys;
 
@@ -144,17 +142,15 @@ public partial class MainWindow : Window
     private void SubTab_Checked(object sender, RoutedEventArgs e)
     {
         if (sender is not RadioButton rb) return;
-        if (TabGeneral is null || TabAppearance is null || TabHotkeys is null) return;
+        if (TabGeneral is null || TabHotkeys is null) return;
 
         TabGeneral.Visibility    = Visibility.Collapsed;
-        TabAppearance.Visibility = Visibility.Collapsed;
         TabCrosshair.Visibility  = Visibility.Collapsed;
         TabHotkeys.Visibility    = Visibility.Collapsed;
 
         UIElement? target = rb.Tag?.ToString() switch
         {
-            "General"    => TabGeneral,
-            "Appearance" => TabAppearance,
+            "Magnifier"  => TabGeneral,
             "Crosshair"  => TabCrosshair,
             "Hotkeys"    => TabHotkeys,
             _ => null,

@@ -77,7 +77,8 @@ public class ConfigManager
 
         Config.OverlayCrosshairSize    = Math.Clamp(Config.OverlayCrosshairSize, AppSettings.MinOverlayCrosshairSize, AppSettings.MaxOverlayCrosshairSize);
         Config.OverlayCrosshairOpacity = Math.Clamp(Config.OverlayCrosshairOpacity, 0.1, 1.0);
-        Config.OverlayCrosshairGap     = Math.Clamp(Config.OverlayCrosshairGap, 0, 40);
+        Config.OverlayCrosshairGap       = Math.Clamp(Config.OverlayCrosshairGap, 0, 40);
+        Config.OverlayCrosshairThickness = Math.Clamp(Config.OverlayCrosshairThickness, AppSettings.MinOverlayCrosshairThickness, AppSettings.MaxOverlayCrosshairThickness);
 
         Config.HotkeyToggle = string.IsNullOrWhiteSpace(Config.HotkeyToggle)
             ? AppSettings.DefaultHotkeyToggle

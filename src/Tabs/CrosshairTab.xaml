@@ -120,6 +120,26 @@
                                    Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="6,0,0,0"/>
                     </Grid>
 
+                    <Separator x:Name="ThicknessSeparator" Background="{StaticResource BorderBrush}" Margin="0,0,0,8"/>
+
+                    <Grid x:Name="ThicknessRow" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="44"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Thickness (px)" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                            <TextBlock Text="Width of the crosshair lines" Style="{StaticResource SubText}"/>
+                        </StackPanel>
+                        <Slider x:Name="SlThickness" Grid.Column="1"
+                            Minimum="1" Maximum="8" TickFrequency="0.5"
+                                IsSnapToTickEnabled="True" Style="{StaticResource ModernSlider}"
+                                ValueChanged="SlThickness_ValueChanged"/>
+                        <TextBlock x:Name="LblThickness" Grid.Column="2" VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="6,0,0,0"/>
+                    </Grid>
+
                     <Separator x:Name="GapSeparator" Background="{StaticResource BorderBrush}" Margin="0,0,0,8"/>
 
                     <!-- Gap (hidden for Dot) -->

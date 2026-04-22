@@ -4,8 +4,8 @@ public static class AppSettings
 {
     public const string AppName         = "DigitalScope";
     public const string AppPublisher    = "PawelKawka";
-    public const string AppBaseVersion  = "1.1.3";
-    public const string AppBuild        = "1804202601";
+    public const string AppBaseVersion  = "1.2.0";
+    public const string AppBuild        = "2204202601";
     public const string AppVersion      = AppBaseVersion + "." + AppBuild;
 
     public const int DefaultMagnifierWidth  = 300;
@@ -26,6 +26,10 @@ public static class AppSettings
     public const int    DefaultOverlayCrosshairGap       = 4;
     public const int    MinOverlayCrosshairSize          = 2;
     public const int    MaxOverlayCrosshairSize          = 120;
+
+    public const double DefaultOverlayCrosshairThickness = 2.0;
+    public const double MinOverlayCrosshairThickness     = 1.0;
+    public const double MaxOverlayCrosshairThickness     = 8.0;
 
     public const string DefaultHotkeyToggle     = "Ctrl+G";
     public const string DefaultHotkeyCrosshair  = "Ctrl+H";
