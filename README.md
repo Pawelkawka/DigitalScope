@@ -2,7 +2,7 @@
    <h1>DigitalScope</h1>
 </div>
 
-A lightweight real time screen magnifier overlay for Windows that lets you zoom in on the center of your screen
+A lightweight real time screen magnifier and crosshair overlay for Windows that lets you zoom in on the center of your screen and display customizable crosshairs
 
 <p align="center">
    <img src="assets/DSDemo.gif" alt="FluxTranslator" width="900">
@@ -12,6 +12,7 @@ A lightweight real time screen magnifier overlay for Windows that lets you zoom 
 
 - Real time screen magnifier overlay 
 - Adjustable zoom level and window size
+- Crosshair overlay with customizable styles, size, color, opacity, gap, and thickness
 - Click through window, so it does not block mouse input
 - Hotkey toggle for quick on/off
 
